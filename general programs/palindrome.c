@@ -3,13 +3,13 @@
 
 int main()
 {
-    int store[10];
+    int store[100];
     long int n;
     long int rev_n;
 
     do
     {
-        printf("Enter a number(upto 10 digit):");
+        printf("Enter a number(upto 100 digit):");
         scanf("%li",&n);
     }while(n<1);
     rev_n = n;
