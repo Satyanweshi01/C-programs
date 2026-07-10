@@ -2,8 +2,17 @@
 
 int main()
 {
+    char* msg = "Welcome to the  world of memory management";
     printf(
-        "Welcome to the  world of memory management\n"
+        "%s\n",msg
     );
-    return 0;
+    return 0; // this returns 0
+
+    /*
+    This 
+    is
+    a
+    multiline 
+    comment
+    */
 }
