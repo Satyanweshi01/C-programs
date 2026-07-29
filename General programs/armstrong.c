@@ -23,10 +23,10 @@ int counter(int n, int num[])   // a function to get the number of digit and put
     {
         num[i] = n % 10;
         n /= 10;
-    //     mod = n%10;
-    //     num[i] = mod;
-    //     n = n - mod;
-    //     n = n/10;
+                        //     mod = n%10;
+                        //     num[i] = mod;
+                        //     n = n - mod;
+                        //     n = n/10;
         counter+=1;
     }
     return counter;
@@ -40,12 +40,12 @@ void arm(int n, int counter, int num[])
     }
     if (sum == n)
     {
-        printf("This is a Armstrong number");
+        printf("This is a Armstrong number\n");
 
     }
     else
     {        
-        printf("This is a not Armstrong number");
+        printf("This is a not Armstrong number\n");
     }
 }
 int power(int base, int exponant)
