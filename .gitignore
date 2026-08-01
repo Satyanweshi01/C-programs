@@ -1,4 +1,5 @@
 *.exe
 /bin
-/Memory_management/bin
+/memory_management/bin
+/general_programs/bin
 /lab/bin
