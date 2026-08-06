@@ -1,12 +1,14 @@
 #include <stdio.h>
 
-int linear_search(int arr[], int length, int key);
-int binary_search(int arr[], int length, int key);
-int recursive_binary_search(int arr[], int initial, int final, int key);
+void linear_search(int arr[], int length, int key);
+void binary_search(int arr[], int length, int key);
+void recursive_binary_search(int arr[], int initial, int final, int key);
 int main()
 {
+    while(1)
+    {
     int length,key,i,choice;
-    printf("Enter the length of array: ");
+    printf("\n\nEnter the length of array: ");
     scanf("%d",&length);
 
     int arr[length];
@@ -21,10 +23,11 @@ int main()
         "Type 1 for linear search\n"
         "Type 2 for binary search\n"
         "Type 3 for binary search with recursion\n"
+        "Type 4 for exit\n"
         "Enter your choice: "
         );
     scanf("%d",&choice);
-
+    
     switch (choice)
     {
         case 1: 
@@ -36,27 +39,27 @@ int main()
         case 3:
             recursive_binary_search(arr, 0, length-1, key);
             break;
+        case 4:
+            return 0;
         default:
             printf("Could not understand you.");
     }
-
-    return 0;
+    }
 }
 
-int linear_search(int arr[], int length, int key)
+void linear_search(int arr[], int length, int key)
 {
     for (int j = 0; j<length; j++)
     {
         if (arr[j] == key)
         {
             printf("The element is found at index %d\n",j);
-            return 0;
+            return;
         }
     }
     printf("The element is not found\n");
-    return -1;
 }
-int binary_search(int arr[], int length, int key)
+void binary_search(int arr[], int length, int key)
 {
     int initial = 0, final = length-1;
     while (initial <= final)
@@ -65,7 +68,6 @@ int binary_search(int arr[], int length, int key)
         if (arr[mid] == key)
         {
             printf("The element is found at index %d\n",mid);
-            return 0;
         }
         else if (arr[mid] < key)
         {
@@ -77,26 +79,24 @@ int binary_search(int arr[], int length, int key)
         }
     }
     printf("The element is not found\n");
-    return -1;
 }
-int recursive_binary_search(int arr[], int initial, int final, int key)
+void recursive_binary_search(int arr[], int initial, int final, int key)
 {
     if(initial > final)
     {
         printf("The element is not found\n");
-        return -1;
     }
     int mid = (initial+final)/2;
     if (arr[mid] == key)
     {
         printf("The element is found at index %d\n",mid);
-        return 0;
+        return;
     }else if (arr[mid] < key)
     {
-        return recursive_binary_search(arr, mid+1, final, key);
+        recursive_binary_search(arr, mid+1, final, key);
     }
     else if (arr[mid] > key)
     {
-        return recursive_binary_search(arr, initial, mid-1, key);
+        recursive_binary_search(arr, initial, mid-1, key);
     }
 }
