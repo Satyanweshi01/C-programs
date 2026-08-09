@@ -23,7 +23,7 @@ int main()
     result[0] = storage[0];
     for (i = 1; )
     {
-
+        
     }
     // printing the array
     for (i = 0; i<INTEGER; i++)
