@@ -34,7 +34,7 @@ int main()
     {
         printf("The element is found at index %d\n",result);
     }
-    else
+    else if (result == -1)
     {
         printf("The element is not found\n");
     }
@@ -47,7 +47,6 @@ switch (choice)
     {
         case 1: 
             return linear_search(arr,length,key);
-            
         case 2: 
             return binary_search(arr,length,key);
         case 3:
@@ -56,6 +55,7 @@ switch (choice)
             exit(0);
         default:
             printf("Could not understand you.");
+            return -2;
     }
 }
 int linear_search(int arr[], int length, int key)
