@@ -19,7 +19,7 @@ void append(void);
 void display(void);
 void insert(void);
 void deletion(void);
-void reverse(void);
+void reverse(void); 
 
 
 int main(void)
