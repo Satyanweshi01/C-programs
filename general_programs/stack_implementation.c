@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define MAX 
 
-#define MAX 10
+
 //global declarations
 int stack[MAX], top = -1;
 
