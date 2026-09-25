@@ -25,7 +25,9 @@ int main(void)
 	//display(top);
 	printf("Enter the infix expression(Upto 100 characters): ");
 	scanf("%s",infix_expr);
-	printf("%s\n",infix_expr);
+
+	printf("Infix expression: %s\n",infix_expr);
+
 	int expr_len = strlen(infix_expr);
 	infix_expr[expr_len] = ')'; // adding right parenthesis at the end of the infix expression
 
@@ -40,56 +42,83 @@ int main(void)
 		// printf("%d\n",i); // iteration count
 		char curr_char = infix_expr[i];		// here infix_expr[i] is the current character
 		//printf("%c\n",curr_char);
-
+		//display(top);
 		if ((curr_char == '+')||(curr_char == '-')||(curr_char == '*')||(curr_char == '/')||(curr_char == '^')||(curr_char == '(')||(curr_char == ')'))//assuming only +,-,*,/,^ given as operator and rest are alphabet
 		{
 			//printf("@");
-			if (pw_eval(top->data)>pw_eval(curr_char) || curr_char == '(')
-			{
-				top=push(top,curr_char);
-				printf("Pushed: %c\n",curr_char);
-				//display(top);
-				//i++;
-			}
-			else
-			{
-				if (curr_char == ')')
+			if (curr_char == ')')
 				{
 					//printf("@\n");
 					while(top->data != '(')
 					{
 						//printf("#\n");
+						//printf("%c\n",top->data);
 						postfix_expr[j] = top->data;
-						printf("Poped: %c\n",top->data);
+						printf("Poped1: %c\n",top->data);
 						top = pop(top);
 						j++;
 					}
+					top = pop(top); // for the '('
 					continue;
 				}
-				while(pw_eval(top->data)<=pw_eval(curr_char))
+			else if (pw_eval(top->data)<pw_eval(curr_char) || curr_char == '(')
+			{
+				top=push(top,curr_char);
+				printf("Pushed4: %c\n",curr_char);
+				//display(top);
+				//i++;
+			}
+			else if (pw_eval(top->data)==pw_eval(curr_char))
 				{
+					printf("iamhere");
+					if (pw_eval(curr_char) == 3) //cause '^' is right associative during equal precedence
+						{
+							top=push(top,curr_char);
+							printf("Pushed3: %c\n",curr_char);
+							continue;
+						}
+					else // rest are left associative during equal precedence
+						{
+								postfix_expr[j] = top->data;
+								j++;
+								printf("Poped4: %c\n",top->data);
+								top = pop(top);
+								top=push(top,curr_char);
+								printf("Pushed2: %c\n",curr_char);						
+								continue;
+						}
+				}
+			else
+			{
+				while(pw_eval(top->data)>pw_eval(curr_char))
+				{
+					//printf("%c\n",top->data);
 					postfix_expr[j] = top->data;
+					printf("Poped2: %c\n",top->data);
 					top = pop(top);
-					printf("Poped: %c\n",curr_char);
+					
 					j++;
 				}
 				top = push(top,curr_char);
-				printf("Pushed: %c\n",curr_char);
+				printf("Pushed1: %c\n",curr_char);
 				//i++;
 			}
 		}
 		else
 		{
 			//printf("#");
+			//printf("%c",curr_char);
 			postfix_expr[j] = toupper(curr_char);
 			//i++;
 			j++;
 		}
 	}
-	top = pop(top);
 	//display(top);
-	printf("%s\n",postfix_expr);
+	postfix_expr[j] = '\0';
+	
+	printf("Postfix expression: %s\n",postfix_expr);
 }
+
 int pw_eval(char sign)
 {
 	if (sign == '+' || sign == '-')
@@ -98,6 +127,7 @@ int pw_eval(char sign)
 		return 2;
 	if (sign == '^')
 		return 3;
+	return 0;
 }
 s* push(s* top, char element)
 {
