@@ -9,21 +9,28 @@ typedef union any_type
 typedef struct node
 {
     any_type data;
-    struct node* pointer;
+    struct node* next;
 }node;
+
+node* append(node* head);
 
 int main()
 {
-    node* list = NULL;
-    int ids;
-    printf("No of ids:");
-    scanf("%d",&ids);
-    for(int i = 0; i<n ; i++)
+    node* head,last;
+    head = NULL;
+    last = NULL;
+
+    while(1)
     {
-        node* n1 = malloc(sizeof(node)); // data allocated
-        if (n1 == NULL) {return 1;}
-        printf("ID%d: ",i+1);
-        
+        int choice;
+        printf(
+            "Type 1 to append"
+            "Type 2 to display"
+            "Type 3 to exit"
+            "Enter the choice: "
+        );
+        scanf("%d",&choice);
+
 
     }
     

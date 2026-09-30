@@ -30,7 +30,7 @@ int main(void)
 
 	int expr_len = strlen(infix_expr);
 	infix_expr[expr_len] = ')'; // adding right parenthesis at the end of the infix expression
-	
+
 	//printf("Infix expression: %s\n",infix_expr);
 	//expression length
 	//printf("length: %d\n",expr_len);
@@ -71,23 +71,23 @@ int main(void)
 			}
 			else if (pw_eval(top->data)==pw_eval(curr_char))
 				{
-					
 					if (pw_eval(curr_char) == 3) //cause '^' is right associative during equal precedence
-						{printf("iamhere");
+						{
+							//printf("iamhere");
 							top=push(top,curr_char);
 							printf("Pushed3: %c\n",curr_char);
 							continue;
 						}
 					else // rest are left associative during equal precedence
 						{
-							printf("iamherenow");
-								postfix_expr[j] = top->data;
-								j++;
-								printf("Poped4: %c\n",top->data);
-								top = pop(top);
-								top=push(top,curr_char);
-								printf("Pushed2: %c\n",curr_char);						
-								continue;
+							//printf("iamherenow");
+							postfix_expr[j] = top->data;
+							j++;
+							printf("Poped4: %c\n",top->data);
+							top = pop(top);
+							top=push(top,curr_char);
+							printf("Pushed2: %c\n",curr_char);
+							continue;
 						}
 				}
 			else
@@ -98,7 +98,6 @@ int main(void)
 					postfix_expr[j] = top->data;
 					printf("Poped2: %c\n",top->data);
 					top = pop(top);
-					
 					j++;
 				}
 
@@ -106,21 +105,21 @@ int main(void)
 				{
 					if (pw_eval(curr_char) == 3) //cause '^' is right associative during equal precedence
 						{
-							printf("iamhere");
+							//printf("iamhere");
 							top=push(top,curr_char);
 							printf("Pushed3: %c\n",curr_char);
 							continue;
 						}
 					else // rest are left associative during equal precedence
 						{
-							printf("iamherenow");
-								postfix_expr[j] = top->data;
-								j++;
-								printf("Poped4: %c\n",top->data);
-								top = pop(top);
-								top=push(top,curr_char);
-								printf("Pushed2: %c\n",curr_char);						
-								continue;
+							//printf("iamherenow");
+							postfix_expr[j] = top->data;
+							j++;
+							printf("Poped4: %c\n",top->data);
+							top = pop(top);
+							top=push(top,curr_char);
+							printf("Pushed2: %c\n",curr_char);
+							continue;
 						}
 				}
 				else
@@ -131,7 +130,6 @@ int main(void)
 			}
 				//i++;
 			}
-	
 		else
 		{
 			//printf("#");
@@ -143,7 +141,6 @@ int main(void)
 	}
 	//display(top);
 	postfix_expr[j] = '\0';
-	
 	printf("Postfix expression: %s\n",postfix_expr);
 }
 
