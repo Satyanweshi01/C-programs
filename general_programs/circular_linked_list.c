@@ -9,6 +9,7 @@ typedef struct node
 
 node* addFirst(node* last, int element);
 void display(node* last);
+node* deletion(node* last, int index);
 
 int main()
 {
@@ -69,16 +70,46 @@ node* addFirst(node* last, int element)
 }
 void display(node* last)
 {
-    node* trav;
-    trav = last->next; //this makes trav the head now
-    while(trav != last)
+    node* Node;
+    Node = last->next; //this makes Node the preNode now
+    while(Node != last)
     {
-        printf("%d ",trav->data);
-        trav = trav->next;
+        printf("%d ",Node->data);
+        Node = Node->next;
     }
-    printf("%d\n",trav->data);
+    printf("%d\n",Node->data);
 }
 node* deletion(node* last, int index)
 {
-    // considering oth index here, so index will start 0,
+    // considering 0th index here, so index will start 0 to n where 0 being the first element
+
+    node* preNode;
+    node* curr_Node;
+    node* postNode;
+    preNode = last->next; 
+    curr_Node = preNode->next;
+    postNode = curr_Node->next;
+    // there will few cases to consider 1. if 0th element gets deleted 2. if last element gets deleted 3. anything in between
+    if (index == 0) // if deletion happens to the first node
+    {
+        last->next = curr_Node;
+        free(preNode);
+        return last;
+    }
+    while(index!=0&&curr_Node != last)
+    {
+        curr_Node = curr_Node->next;
+        preNode = preNode->next;
+        postNode = postNode->next;
+        index--;
+    }
+    if (curr_Node == last)// if deletion happens to the last node
+    {
+        preNode->next = postNode;
+        free(curr_Node);
+        return preNode;
+    }
+    preNode->next = postNode;
+    free(curr_Node);
+    return last;
 }
