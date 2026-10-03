@@ -70,6 +70,11 @@ node* addFirst(node* last, int element)
 }
 void display(node* last)
 {
+    if (last == NULL)
+    {
+        printf("The circular linked list is empty\n");
+        return;
+    }
     node* Node;
     Node = last->next; //this makes Node the preNode now
     while(Node != last)
@@ -82,24 +87,36 @@ void display(node* last)
 node* deletion(node* last, int index)
 {
     // considering 0th index here, so index will start 0 to n where 0 being the first element
-
+    if (last == NULL)
+    {
+        printf("The circular linked list is empty\n");
+        return NULL;
+    }
     node* preNode;
     node* curr_Node;
     node* postNode;
-    preNode = last->next; 
-    curr_Node = preNode->next;
-    postNode = curr_Node->next;
+    preNode = last; 
+    curr_Node = preNode->next; // now head
+    postNode = curr_Node->next; // now head->next
+
+    if (preNode == curr_Node && curr_Node == postNode && postNode == preNode)// only one node in the circular linked list
+    {
+        preNode = NULL;
+        postNode = NULL;
+        free(curr_Node);
+        return NULL;
+    }
     // there will few cases to consider 1. if 0th element gets deleted 2. if last element gets deleted 3. anything in between
     if (index == 0) // if deletion happens to the first node
     {
-        last->next = curr_Node;
-        free(preNode);
+        preNode->next = postNode;
+        free(curr_Node);
         return last;
     }
-    while(index!=0&&curr_Node != last)
+    while(index!=0 && curr_Node != last)
     {
-        curr_Node = curr_Node->next;
         preNode = preNode->next;
+        curr_Node = curr_Node->next;
         postNode = postNode->next;
         index--;
     }
