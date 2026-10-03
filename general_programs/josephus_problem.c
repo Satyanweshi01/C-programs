@@ -138,7 +138,7 @@ node* josephus_deletion(node* last, int shift)
     {
         int i;
         for(i = 0; i<shift; i++)
-        {   printf("%d %d %d\n",i,preNode->data,curr_Node->data);
+        {   //printf("%d %d %d\n",i,preNode->data,curr_Node->data);
             preNode = preNode->next;
             curr_Node = curr_Node->next;
         }
