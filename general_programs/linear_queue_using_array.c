@@ -31,14 +31,18 @@ int main(void)
             enqueue(v);
             break;
         case 2:
-            
+            dequeue();
+            break;
+        case 3:
+            display();
+            break;
         case 4:
-
+            peek();
+            break;
+        case 5:
+            exit(0);
+        default: printf("Invalid Command");       
     }
-
-
-
-
     return 0;
 }
 void enqueue(int element)
@@ -47,6 +51,7 @@ void enqueue(int element)
 }
 void dequeue(int element)
 {
+    
     
 }
 void display(void)
