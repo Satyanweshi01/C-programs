@@ -47,6 +47,7 @@ int main(void)
 }
 void enqueue(int element)
 {
+    if 
     
 }
 void dequeue(int element)
