@@ -1,0 +1,117 @@
+// Implements a dictionary's functionality
+
+#include "dictionary.h"
+#include <ctype.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <strings.h>
+
+// Represents a node in a hash table
+typedef struct node
+{
+    char word[LENGTH + 1];
+    struct node *next;
+} node;
+
+// TODO: Choose number of buckets in hash table
+const unsigned int N = 70; // I might change this according to my hashmap implementation
+
+// Hash table
+node *table[N];
+
+// No of words in the dictionary
+int num_words = 0;
+
+// Returns true if word is in dictionary, else false
+bool check(const char *word)
+{
+    int hash_value = hash(word);
+    node *head = table[hash_value];
+    node *cursor = head;
+
+    while (cursor->next != NULL)
+    {
+        if (strcasecmp(cursor->word, word) == 0)
+        {
+            return true;
+        }
+        else
+        {
+            cursor = cursor->next;
+        }
+    }
+    return false;
+}
+
+// Hashes word to a number
+unsigned int hash(const char *word)
+{
+    //printf("%lu",(toupper(word[0]) - 'A') + (strlen(word)));
+    return ((toupper(word[0]) - 'A') + (strlen(word)));
+
+}
+
+// Loads dictionary into memory, returning true if successful, else false
+bool load(const char *dictionary)
+{
+    FILE *dict = fopen(dictionary, "r");
+    if (dict == NULL)
+    {
+        return false;
+    }
+
+    char word[LENGTH + 1]; // character array
+    node *head = NULL;     // head of the linked list
+    while (fscanf(dict, "%s", word) != EOF)
+    {
+        node *n = malloc(sizeof(node)); // allocated node space
+        if (n == NULL)
+        {
+            fclose(dict);
+            return false;
+        }
+
+        strcpy(n->word, word); // filling up the new node's word member
+        n->next = head; // filling up the new node's next node pointer member which is pointing
+                        // towards head's direction
+        head = n;       // now head is pointing towords new node
+
+        int index = hash(word);
+        table[index] = head;
+        num_words++;
+    }
+    fclose(dict);
+    return true;
+}
+
+// Returns number of words in dictionary if loaded, else 0 if not yet loaded
+unsigned int size(void)
+{
+    return num_words;
+}
+
+// Unloads dictionary from memory, returning true if successful, else false
+bool unload(void)
+{
+    int freed_words = 0;
+    for (int i = 0; i < N; i++)
+    {
+        node *list = table[i];
+        node *cursor = list;
+        while (cursor != NULL)
+        {
+            node *tmp = cursor;
+            cursor = cursor->next;
+            free(tmp);
+            freed_words++;
+        }
+    }
+    if (num_words == freed_words)
+    {
+        return true;
+    }else{
+    return false;
+    }
+}
